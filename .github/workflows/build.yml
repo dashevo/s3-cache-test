@@ -47,6 +47,8 @@ jobs:
         labels: ${{ steps.docker_meta.outputs.labels }}
         # platforms: linux/amd64,linux/arm64
         platforms: linux/amd64
+        cache-from: type=s3,region=eu-west-1,bucket=core-runner-cache
+        cache-to: type=s3,region=eu-west-1,bucket=core-runner-cache
 
     - name: Setup tmate session
       if: ${{ failure() }}
