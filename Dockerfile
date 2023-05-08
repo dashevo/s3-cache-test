@@ -9,6 +9,7 @@ apk add --no-cache \
     alpine-sdk \
     bash \
     binutils \
+    build-essential \
     ca-certificates \
     clang \
     clang-dev \
