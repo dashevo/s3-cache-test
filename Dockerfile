@@ -9,7 +9,6 @@ apk add --no-cache \
     alpine-sdk \
     bash \
     binutils \
-    build-essential \
     ca-certificates \
     clang \
     clang-dev \
@@ -21,6 +20,7 @@ apk add --no-cache \
     linux-headers \
     llvm-dev \
     llvm-static \
+    make \
     nodejs \
     npm \
     openssh-client \
