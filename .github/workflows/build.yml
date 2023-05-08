@@ -10,6 +10,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        path: dockerfile
 
     - name: Checkout platform repo
       uses: actions/checkout@v3
@@ -74,6 +76,7 @@ jobs:
       with:
         context: ${{ github.workspace }}
         push: false
+        file: dockerfile/Dockerfile
         tags: ${{ steps.docker_meta.outputs.tags }}
         labels: ${{ steps.docker_meta.outputs.labels }}
         # platforms: linux/amd64,linux/arm64
