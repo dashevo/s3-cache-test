@@ -63,6 +63,15 @@ RUN rustup toolchain install stable && \
 
 COPY . .
 
+# Install protoc - protobuf compiler
+# The one shipped with Alpine does not work
+RUN if [[ "$TARGETARCH" == "arm64" ]] ; then export PROTOC_ARCH=aarch_64; else export PROTOC_ARCH=x86_64; fi; \
+    curl -Ls https://github.com/protocolbuffers/protobuf/releases/download/v22.2/protoc-22.2-linux-${PROTOC_ARCH}.zip \
+        -o /tmp/protoc.zip && \
+    unzip -qd /opt/protoc /tmp/protoc.zip && \
+    rm /tmp/protoc.zip && \
+    ln -s /opt/protoc/bin/protoc /usr/bin/
+
 RUN --mount=type=cache,sharing=shared,target=${CARGO_HOME}/registry/index \
     --mount=type=cache,sharing=shared,target=${CARGO_HOME}/registry/cache \
     --mount=type=cache,sharing=shared,target=${CARGO_HOME}/git/db \
