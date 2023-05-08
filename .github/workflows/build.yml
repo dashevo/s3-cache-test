@@ -28,7 +28,7 @@ jobs:
           latest=false
 
     - name: Install build tools
-      run: sudo apt install -y build-essential clang libssl-dev spkg-config
+      run: sudo apt install -y build-essential clang libssl-dev pkg-config
 
     - name: Setup Rust
       uses: dtolnay/rust-toolchain@master
