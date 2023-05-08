@@ -18,6 +18,7 @@ jobs:
       with:
         repository: dashpay/platform
         path: .
+        ref: v0.25-dev
 
     - name: Docker meta
       id: docker_meta
