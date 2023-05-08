@@ -68,7 +68,7 @@ jobs:
 
     - name: Build packages
       run: yarn build --filter "+@dashevo/drive"
-      working-directory: ./platform
+      working-directory: ${{ github.workspace }}/platform
       env:
         CARGO_BUILD_PROFILE: release
 
