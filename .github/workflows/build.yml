@@ -30,6 +30,17 @@ jobs:
     - name: Install build tools
       run: sudo apt install -y build-essential
 
+    - name: Setup Rust
+      uses: dtolnay/rust-toolchain@master
+      with:
+        toolchain: stable
+        target: wasm32-unknown-unknown
+
+    - name: Setup Node.JS
+      uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+
     - name: Set up QEMU to run multi-arch builds
       uses: docker/setup-qemu-action@v2
 
@@ -45,11 +56,6 @@ jobs:
     #   with:
     #     username: ${{ secrets.DOCKERHUB_USERNAME }}
     #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Setup Node.JS
-      uses: actions/setup-node@v3
-      with:
-        node-version: "16"
 
     - name: Enable corepack
       run: corepack enable
