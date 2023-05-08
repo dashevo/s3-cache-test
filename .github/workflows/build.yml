@@ -61,9 +61,11 @@ jobs:
     #     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Enable corepack
+      working-directory: ${{ github.workspace }}/platform
       run: corepack enable
 
     - name: Install dependencies
+      working-directory: ${{ github.workspace }}/platform
       run: yarn install
 
     - name: Build packages
