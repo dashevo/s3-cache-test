@@ -27,6 +27,7 @@ apk add --no-cache \
     openssl \
     openssl-dev \
     perl \
+    pkg-config \
     python3 \
     unzip \
     wget \
