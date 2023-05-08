@@ -11,17 +11,25 @@ apk add --no-cache \
     binutils \
     ca-certificates \
     clang \
+    clang-dev \
+    clang-static \
     cmake \
     gcc \
     git \
     libc-dev \
     linux-headers \
+    llvm-dev \
+    llvm-static \
     nodejs \
     npm \
     openssh-client \
     openssl \
     openssl-dev \
+    perl \
     python3 \
+    unzip \
+    wget \
+    xz \
     zeromq-dev
 
 # Configure Node.js
@@ -29,6 +37,8 @@ RUN npm install -g npm@latest && \
     npm install -g corepack@latest && \
     corepack prepare yarn@stable --activate && \
     corepack enable
+
+SHELL ["/bin/bash", "-c"]
 
 # # Install sccache for caching
 # ENV SCCACHE_VERSION=0.4.2
@@ -48,3 +58,17 @@ RUN npm install -g npm@latest && \
 RUN rustup toolchain install stable && \
     rustup target add wasm32-unknown-unknown --toolchain stable && \
     cargo install -f wasm-bindgen-cli
+
+COPY . .
+
+RUN --mount=type=cache,sharing=shared,target=${CARGO_HOME}/registry/index \
+    --mount=type=cache,sharing=shared,target=${CARGO_HOME}/registry/cache \
+    --mount=type=cache,sharing=shared,target=${CARGO_HOME}/git/db \
+    cargo build \
+        --package dashcore-rpc \
+        --config net.git-fetch-with-cli=true && \
+    cargo build \
+        --package drive-abci \
+        --config net.git-fetch-with-cli=true && \
+    cp /usr/src/dash-platform/target/*/drive-abci /usr/src/dash-platform/drive-abci && \
+    cargo clean
